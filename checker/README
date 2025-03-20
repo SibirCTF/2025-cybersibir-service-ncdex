@@ -1,0 +1,4 @@
+```sh
+make build
+make run ARGS="127.0.0.1 put"
+```

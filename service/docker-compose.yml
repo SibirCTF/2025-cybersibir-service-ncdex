@@ -1,0 +1,27 @@
+services:
+  app:
+    build: .
+    ports:
+      - 7331:7331
+    networks:
+      - ncdex_net
+    restart: always
+    depends_on:
+      - db
+  db:
+    image: postgres:17.4-alpine
+    volumes:
+      - ./src/db/migrations:/docker-entrypoint-initdb.d
+    ports:
+      - 8432:8432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: nde
+      PGPORT: 8432
+    restart: always
+    networks:
+      - ncdex_net
+networks:
+  ncdex_net:
+    driver: bridge

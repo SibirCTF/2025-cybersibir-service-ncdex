@@ -1,0 +1,39 @@
+<% title = "Детали транзакции" %>
+
+<div class="container neon-container">
+  <div class="card bg-dark text-light border-neon mb-4">
+    <div class="card-header bg-primary">
+      <h3 class="mb-0">🔍 Транзакция #<%= transaction.id %></h3>
+    </div>
+    <div class="card-body">
+      <p><strong>📤 Отправитель:</strong> <%= transaction.from_user %></p>
+      <p><strong>📥 Получатель:</strong> <%= transaction.to_user %></p>
+      <p><strong>💳 Сумма:</strong> <%= transaction.amount %> кредитов</p>
+      <p><strong>📦 Тип:</strong>
+        <% case transaction.transaction_type
+            when "purchase" %>
+            <span class="badge bg-success">🛒 Покупка</span>
+            <% when "bonus" %>
+            <span class="badge bg-warning text-dark">🎁 Бонус</span>
+            <% when "transfer" %>
+            <span class="badge bg-info">🔁 Перевод</span>
+            <% else %>
+            <span class="badge bg-secondary">❓ Неизвестно</span>
+        <% end %>
+      </p>
+      <p><strong>🕒 Дата:</strong> <%= transaction.created_at.to_s("%d.%m.%Y %H:%M") %></p>
+
+      <% if transaction.vulnerability_id %>
+        <p><strong>🕳 Уязвимость:</strong>
+          <a href="/vulnerabilities/<%= transaction.id %>" class="text-warning">
+            NCVE-<%= transaction.vulnerability_id.to_s.rjust(4, '0') %>
+          </a>
+        </p>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="text-center mt-3">
+    <a href="/transactions" class="btn-neon-secondary">🔙 Назад к списку</a>
+  </div>
+</div>

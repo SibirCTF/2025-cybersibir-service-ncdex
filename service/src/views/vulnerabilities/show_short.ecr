@@ -1,0 +1,34 @@
+<% title = "Детали уязвимости" %>
+<div class="card bg-dark text-light border-neon">
+    <div class="card-header bg-primary">
+        <h3 class="mb-0"><%= vulnerability.title %></h3>
+    </div>
+    <div class="card-body">
+        <p><strong><%= vulnerability.cve_code %></strong></p>
+        <p><strong>Описание:</strong> <%= vulnerability.short_description %></p>
+
+        <% type_label = VulnMappings::TYPE_MAPPING[vulnerability.exploit_type] || vulnerability.exploit_type %>
+        <p><strong>Тип уязвимости:</strong> <%= vulnerability.type_icon %> <%= type_label %></p>
+
+        <% plat_label = VulnMappings::PLATFORM_MAPPING[vulnerability.platform] || vulnerability.platform %>
+        <p><strong>Платформа:</strong> <%= vulnerability.platform_icon %> <%= plat_label %></p>
+
+        <p><strong>Цена:</strong> <%= vulnerability.price %> кредитов</p>
+
+        <p><strong>Строгость:</strong>
+            <% case vulnerability.severity
+                when "none"      %> <span class="badge bg-secondary">Отсутствует</span>
+                <% when "low"     %> <span class="badge bg-info">Низкий</span>
+                <% when "medium"  %> <span class="badge bg-primary">Средний</span>
+                <% when "high"    %> <span class="badge bg-warning text-dark">Высокий</span>
+                <% when "critical"%> <span class="badge bg-danger">Критический</span>
+            <% end %>
+        </p>
+
+        <% if vulnerability.status == "available" %>
+            <a href="/vulnerabilities/<%= vulnerability.id %>/buy" class="btn btn-warning">Купить</a>
+        <% end %>
+
+        <a href="/vulnerabilities" class="btn btn-outline-light">Назад</a>
+    </div>
+</div>

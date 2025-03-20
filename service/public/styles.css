@@ -1,0 +1,201 @@
+body {
+    font-family: "Orbitron", sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(180deg, #0f0c29, #302b63, #24243e);
+    color: #eee;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+}
+
+header {
+    background: rgba(34, 34, 34, 0.9);
+    padding: 15px;
+    text-align: center;
+    border-bottom: 2px solid #ff00ff;
+    box-shadow: 0px 0px 10px #ff00ff;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+}
+
+nav a {
+    color: #ff00ff;
+    margin: 0 15px;
+    font-size: 18px;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+nav a:hover {
+    color: #00ffff;
+    text-shadow: 0 0 10px #00ffff;
+}
+
+h2 {
+    color: #ff00ff;
+    text-align: center;
+    font-size: 28px;
+    text-shadow: 0 0 10px #ff00ff;
+}
+
+.btn {
+    color: #fff;
+    padding: 10px 15px;
+    text-decoration: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+
+.btn:hover {
+    background: linear-gradient(90deg, #00ffff, #00bfff);
+    box-shadow: 0px 0px 20px #00ffff;
+}
+
+.card {
+    background: rgba(34, 34, 34, 0.9);
+    border: 2px solid #ff00ff;
+    box-shadow: 0px 0px 15px #ff00ff;
+    padding: 20px;
+    border-radius: 10px;
+    transition: all 0.3s;
+}
+
+.card:hover {
+    box-shadow: 0px 0px 25px #00ffff;
+}
+
+footer {
+    background: rgba(34, 34, 34, 0.9);
+    text-align: center;
+    padding: 15px;
+    margin-top: 20px;
+    color: #ff00ff;
+    font-size: 14px;
+    border-top: 2px solid #ff00ff;
+    box-shadow: 0px 0px 10px #ff00ff;
+}
+
+
+.neon-container {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.neon-title {
+    font-size: 50px;
+    font-weight: bold;
+    color: #ff00ff;
+    text-shadow: 0px 0px 15px #ff00ff, 0px 0px 30px #ff00ff;
+    animation: neon-glow 1.5s infinite alternate;
+}
+
+@keyframes neon-glow {
+    from {
+        text-shadow: 0px 0px 15px #ff00ff;
+    }
+
+    to {
+        text-shadow: 0px 0px 25px #ff00ff;
+    }
+}
+
+.neon-text {
+    font-size: 20px;
+    color: #00ffff;
+    text-shadow: 0px 0px 10px #00ffff, 0px 0px 20px #00ffff;
+    animation: neon-text-glow 2s infinite alternate;
+}
+
+.nav-buttons {
+    margin-top: 20px;
+}
+
+.btn-neon,
+.btn-neon-secondary {
+    display: inline-block;
+    margin: 10px;
+    padding: 15px 25px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.btn-neon {
+    border: 2px solid #ff00ff;
+    background: linear-gradient(90deg, #ff00ff, #ff1493);
+    box-shadow: 0px 0px 10px #ff00ff, 0px 0px 20px #ff00ff;
+}
+
+.btn-neon:hover {
+    background: linear-gradient(90deg, #00ffff, #00bfff);
+    box-shadow: 0px 0px 15px #00ffff, 0px 0px 30px #00ffff;
+    transform: scale(1.05);
+}
+
+.btn-neon-secondary {
+    border: 2px solid #00ffff;
+    background: linear-gradient(90deg, #0044ff, #00ffff);
+    box-shadow: 0px 0px 10px #00ffff, 0px 0px 20px #00ffff;
+}
+
+.btn-neon-secondary:hover {
+    background: linear-gradient(90deg, #ff00ff, #ff1493);
+    box-shadow: 0px 0px 15px #ff00ff, 0px 0px 30px #ff00ff;
+    transform: scale(1.05);
+}
+
+.popular-vulns {
+    margin-top: 30px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    background: rgba(34, 34, 34, 0.8);
+    box-shadow: 0px 0px 15px #ff00ff;
+}
+
+th,
+td {
+    border: 1px solid #ff00ff;
+    padding: 12px;
+    text-align: left;
+    color: #ffffff;
+}
+
+th {
+    background: linear-gradient(90deg, #ff00ff, #ff1493);
+    color: #fff;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.glow-box {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 20px;
+    border: 2px solid #ff00ff;
+    box-shadow: 0px 0px 20px #ff00ff;
+    transition: 0.3s;
+}
+
+.glow-box:hover {
+    box-shadow: 0px 0px 25px #00ffff, 0px 0px 40px #00ffff;
+}
+
+pre {
+    background-color: #222;
+    color: #ffcc00;
+    padding: 10px;
+    border-radius: 4px;
+    overflow-x: auto;
+}

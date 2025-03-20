@@ -1,0 +1,3 @@
+service/lib/
+service/bin/
+checker/checker_state.db

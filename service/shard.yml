@@ -1,0 +1,27 @@
+name: nightcity-data-exchange
+version: 0.1.0
+
+authors:
+  - IgorPolyakov <igorpolyakov@mail.com>
+
+targets:
+  nightcity-data-exchange:
+    main: src/app.cr
+
+description: |
+  Short description of nightcity-data-exchange
+
+dependencies:
+  pg:
+    github: will/crystal-pg
+  kemal:
+    github: kemalcr/kemal
+
+  kemal-session:
+    github: kemalcr/kemal-session
+
+development_dependencies:
+  faker:
+    github: askn/faker
+
+license: MIT

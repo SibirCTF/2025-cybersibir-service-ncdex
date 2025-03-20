@@ -1,0 +1,25 @@
+<% title = "Перевод средств" %>
+
+<div class="container neon-container">
+<h2 class="neon-title">💸 Перевод средств</h2>
+<p class="neon-text">Укажите email получателя и сумму для перевода.</p>
+
+<form action="/users/transfer" method="post" class="form-neon">
+    <div class="mb-3">
+        <label for="recipient_email" class="form-label">📧 Email получателя:</label>
+        <input type="email" id="recipient_email" name="recipient_email" class="form-control neon-input" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="amount" class="form-label">💰 Сумма перевода:</label>
+        <input type="number" id="amount" name="amount" class="form-control neon-input" min="1" max="2147483646" required>
+    </div>
+
+    <div class="mb-3">
+        <input type="hidden" id="sender_email" name="sender_email" class="form-control neon-input" value="<%= current_user.email %>" required>
+    </div>
+
+    <button type="submit" class="btn-neon">✅ Перевести</button>
+    <a href="/users/profile" class="btn-neon-secondary">❌ Отмена</a>
+</form>
+</div>

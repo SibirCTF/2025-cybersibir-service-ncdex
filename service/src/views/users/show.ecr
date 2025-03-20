@@ -1,0 +1,40 @@
+<% title = "Публичный профиль пользователя" %>
+
+<div class="container neon-container">
+    <!-- Личная информация пользователя -->
+    <div class="card bg-dark text-light border-neon mb-4">
+        <div class="card-header bg-primary">
+            <h3 class="mb-0">👤 <%= user.username %> (Публичный профиль)</h3>
+        </div>
+        <div class="card-body">
+            <p><strong>Email:</strong> <%= user.mask_email %></p>
+            <p><strong>Активность:</strong>
+                <% if user.activity == 0 %>
+                    <span class="badge bg-dark">💤 Неактивный</span>
+                <% elsif user.activity < 3 %>
+                    <span class="badge bg-secondary">🐢 Малоподвижный</span>
+                <% elsif user.activity < 7 %>
+                    <span class="badge bg-info">🚶 Умеренная активность</span>
+                <% elsif user.activity < 15 %>
+                    <span class="badge bg-primary">🏃 Активный</span>
+                <% else %>
+                    <span class="badge bg-success">🚀 Суперактивный</span>
+                <% end %>
+            </p>
+            <p><strong>Статус аккаунта:</strong>
+                <% if user.balance < 10 %>
+                    <span class="badge bg-dark">💀 Нулевой</span>
+                <% elsif user.balance < 1000 %>
+                    <span class="badge bg-secondary">🔹 Скромный</span>
+                <% elsif user.balance < 5000 %>
+                    <span class="badge bg-info">💰 Стабильный</span>
+                <% elsif user.balance < 20000 %>
+                    <span class="badge bg-primary">💎 Солидный</span>
+                <% else %>
+                    <span class="badge bg-success">🦾 Элита</span>
+                <% end %>
+            </p>
+        </div>
+    </div>
+    <a href="/" class="btn-neon-secondary">🏠 На главную</a>
+</div>

@@ -1,0 +1,33 @@
+<% title = "Покупка уязвимости" %>
+<div class="container py-4">
+  <h1 class="mb-4">Покупка уязвимости</h1>
+
+  <% unless current_user %>
+    <div class="alert alert-info">
+      Для покупки уязвимости необходимо <a href="/users/login" class="alert-link">войти в систему</a>.
+    </div>
+  <% end %>
+
+  <div class="card mb-4">
+    <div class="card-header">
+      Детали уязвимости
+    </div>
+    <div class="card-body">
+      <h5 class="card-title"><%= vulnerability.title %></h5>
+      <p class="card-text"><strong>Цена:</strong> <%= vulnerability.price %> кредитов</p>
+    </div>
+  </div>
+
+  <% if current_user %>
+    <h2 class="mb-3">Оформление покупки</h2>
+    <form action="/vulnerabilities/<%= vulnerability.id %>/buy" method="post">
+      <input type="hidden" name="vulnerability_id" value="<%= vulnerability.id %>">
+      <input type="hidden" name="buyer_id" value="<%= current_user.not_nil!.id %>">
+      <div class="mb-3">
+          <p><strong>Ваш внутренний счет:</strong> <%= current_user.not_nil!.balance %> кредитов</p>
+      </div>
+
+      <button type="submit" class="btn btn-success">Оплатить</button>
+    </form>
+  <% end %>
+</div>

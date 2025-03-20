@@ -1,0 +1,122 @@
+<% title = "Уязвимости" %>
+
+<h2 class="text-warning mb-4">📦 Список уязвимостей</h2>
+
+<form method="get" action="/vulnerabilities" class="mb-4 row g-2">
+  <div class="col-md-2">
+    <select name="exploit_type" class="form-select neon-input">
+      <option value="">🔹 Тип (любой)</option>
+      <% VulnMappings::TYPE_MAPPING.each do |key, val| %>
+        <option value="<%= key %>" <%= "selected" if filters["exploit_type"] == key %>><%= val %></option>
+      <% end %>
+    </select>
+  </div>
+
+  <div class="col-md-2">
+    <select name="platform" class="form-select neon-input">
+      <option value="">🖥 Платформа (любая)</option>
+      <% VulnMappings::PLATFORM_MAPPING.each do |key, val| %>
+        <option value="<%= key %>" <%= "selected" if filters["platform"] == key %>><%= val %></option>
+      <% end %>
+    </select>
+  </div>
+
+  <div class="col-md-2">
+    <select name="severity" class="form-select neon-input">
+      <option value="">📊 Строгость (любая)</option>
+      <option value="none" <%= "selected" if filters["severity"] == "none" %>>Отсутствует</option>
+      <option value="low" <%= "selected" if filters["severity"] == "low" %>>Низкий</option>
+      <option value="medium" <%= "selected" if filters["severity"] == "medium" %>>Средний</option>
+      <option value="high" <%= "selected" if filters["severity"] == "high" %>>Высокий</option>
+      <option value="critical" <%= "selected" if filters["severity"] == "critical" %>>Критический</option>
+    </select>
+  </div>
+
+  <div class="col-md-2">
+    <select name="status" class="form-select neon-input">
+      <option value="">📌 Статус (любой)</option>
+      <option value="available" <%= "selected" if filters["status"] == "available" %>>Доступно</option>
+      <option value="manual_review" <%= "selected" if filters["status"] == "manual_review" %>>На рассмотрении</option>
+      <option value="sold" <%= "selected" if filters["status"] == "sold" %>>Продано</option>
+    </select>
+  </div>
+
+  <div class="col-md-3">
+    <input type="text" name="search" class="form-control neon-input" placeholder="🔎 Поиск" value="<%= filters["search"] %>">
+  </div>
+
+  <div class="col-md-1">
+    <button type="submit" class="btn btn-warning w-100">🔍</button>
+  </div>
+</form>
+
+
+<div class="row g-4">
+  <% if vulnerabilities && !vulnerabilities.empty? %>
+    <% vulnerabilities.each do |v| %>
+      <div class="col-md-6 col-lg-4">
+        <div class="card bg-dark text-light border-neon h-100">
+          <div class="card-header bg-primary d-flex justify-content-between align-items-center">
+            <strong><a href="/vulnerabilities/<%= v.id %>" class="text-warning"><%= v.cve_code %></a></strong>
+            <% if v.status == "available" %>
+              <span class="badge bg-success">Доступно</span>
+            <% elsif v.status == "manual_review" %>
+              <span class="badge bg-secondary">На рассмотрении</span>
+            <% else %>
+              <span class="badge bg-primary">Продано</span>
+            <% end %>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title mb-2"><%= v.title %></h5>
+            <p class="mb-1">
+              <strong>Тип:</strong> <%= v.type_icon %> <%= VulnMappings::TYPE_MAPPING[v.exploit_type] || v.exploit_type %>
+            </p>
+            <p class="mb-1">
+              <strong>Платформа:</strong> <%= v.platform_icon %> <%= VulnMappings::PLATFORM_MAPPING[v.platform] || v.platform %>
+            </p>
+            <p class="mb-1"><strong>Цена:</strong> <%= v.price %> 💳</p>
+            <p class="mb-3">
+              <strong>Строгость:</strong>
+              <% case v.severity
+                  when "none"      %> <span class="badge bg-secondary">Отсутствует</span>
+                  <% when "low"     %> <span class="badge bg-info">Низкий</span>
+                  <% when "medium"  %> <span class="badge bg-primary">Средний</span>
+                  <% when "high"    %> <span class="badge bg-warning">Высокий</span>
+                  <% when "critical"%> <span class="badge bg-danger">Критический</span>
+              <% end %>
+            </p>
+
+            <% if v.status == "available" %>
+              <a href="/vulnerabilities/<%= v.id %>/buy" class="btn btn-warning w-100">🛒 Купить</a>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <div class="d-flex justify-content-center mt-4">
+      <nav>
+        <ul class="pagination">
+          <% if page > 1 %>
+            <li class="page-item">
+              <a class="page-link" href="?page=<%= page - 1 %>&<%= env.request.query %>">« Назад</a>
+            </li>
+          <% end %>
+
+          <li class="page-item disabled">
+            <a class="page-link text-warning">Страница <%= page %></a>
+          </li>
+
+          <% if has_more %>
+            <li class="page-item">
+              <a class="page-link" href="?page=<%= page + 1 %>&<%= env.request.query %>">Вперёд »</a>
+            </li>
+          <% end %>
+        </ul>
+      </nav>
+    </div>
+  <% else %>
+    <div class="col-12">
+      <p class="text-center text-muted">😴 Нет доступных уязвимостей</p>
+    </div>
+  <% end %>
+</div>

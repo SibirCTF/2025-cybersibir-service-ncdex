@@ -1,0 +1,83 @@
+<% title = "Добавить уязвимость" %>
+
+<div class="container neon-container">
+    <% if current_user %>
+        <h2 class="neon-title">➕ Добавить уязвимость</h2>
+
+        <form action="/vulnerabilities" method="post" class="form-neon">
+            <div class="mb-3">
+                <label for="title" class="form-label">🔹 Название:</label>
+                <input type="text" id="title" name="title" class="form-control neon-input" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="description" class="form-label">🔹 Описание:</label>
+                <textarea id="description" name="description" class="form-control neon-input" rows="3" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="exploit" class="form-label">💡 Exploit:</label>
+                <textarea id="exploit" name="exploit" class="form-control neon-input" rows="5" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="exploit_type" class="form-label">🔧 Тип уязвимости:</label>
+                <select id="exploit_type" name="exploit_type" class="form-select neon-input" required>
+                    <option value="rce">Удаленное выполнение кода (RCE)</option>
+                    <option value="sqli">SQL-инъекция (SQL Injection)</option>
+                    <option value="xss">Межсайтовый скриптинг (XSS)</option>
+                    <option value="lfi">Локальное включение файлов (LFI)</option>
+                    <option value="rfi">Удаленное включение файлов (RFI)</option>
+                    <option value="xxe">XML External Entity (XXE)</option>
+                    <option value="idor">Неправильная проверка доступа (IDOR)</option>
+                    <option value="ssti">Инъекция в шаблон (SSTI)</option>
+                    <option value="buffer_overflow">Переполнение буфера</option>
+                    <option value="heap_overflow">Переполнение кучи</option>
+                    <option value="format_string">Атака с форматом строки</option>
+                    <option value="command_injection">Инъекция команд</option>
+                    <option value="privilege_escalation">Эскалация привилегий</option>
+                    <option value="auth_bypass">Обход аутентификации</option>
+                    <option value="logic_bug">Логическая ошибка</option>
+                    <option value="crypto_attack">Криптографическая атака</option>
+                    <option value="side_channel">Побочный канал</option>
+                    <option value="hardware_exploit">Атака на железо</option>
+                    <option value="iot_exploit">Уязвимость в IoT-устройствах</option>
+                    <option value="smart_contract">Уязвимость в смарт-контрактах</option>
+                    <option value="deepfake_hack">Атака через Deepfake</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="platform" class="form-label">🖥 Платформа:</label>
+                <select id="platform" name="platform" class="form-select neon-input" required>
+                    <option value="windows">Microsoft Windows</option>
+                    <option value="linux">Linux (включая серверные дистрибутивы)</option>
+                    <option value="macos">Apple macOS</option>
+                    <option value="android">Google Android</option>
+                    <option value="ios">Apple iOS</option>
+                    <option value="web">Веб-приложения (браузерные атаки)</option>
+                    <option value="cloud">Облачные сервисы (AWS, Azure, GCP)</option>
+                    <option value="scada">SCADA/ICS системы</option>
+                    <option value="iot">Интернет вещей (IoT)</option>
+                    <option value="blockchain">Блокчейн и криптографические атаки</option>
+                    <option value="hypervisor">Виртуализация (Hyper-V, VMware, Xen)</option>
+                    <option value="network">Сетевые устройства (роутеры, firewall)</option>
+                    <option value="firmware">Прошивки устройств (BIOS, UEFI, Embedded)</option>
+                    <option value="game">Игры и игровые движки</option>
+                    <option value="drone">Беспилотники (drones)</option>
+                    <option value="automotive">Автомобили (Tesla, ECU, CAN Bus)</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="price" class="form-label">💰 Цена (кредитов):</label>
+                <input type="number" id="price" name="price" class="form-control neon-input" min="1" max="2147483646" required>
+            </div>
+
+            <button type="submit" class="btn-neon">✅ Добавить</button>
+            <a href="/vulnerabilities" class="btn-neon-secondary">❌ Отмена</a>
+        </form>
+    <% else %>
+        <div class="alert alert-info">
+            Для добавления уязвимости необходимо <a href="/users/login" class="alert-link">войти в систему</a>.
+        </div>
+    <% end %>
+</div>

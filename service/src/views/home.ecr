@@ -1,0 +1,39 @@
+<% title = "Главная" %>
+
+<div class="text-center neon-container">
+    <h1 class="neon-title">🚀 NightCity Exploit Market</h1>
+    <p class="lead neon-text">🟢 Купи или продай 0-day эксплойты!</p>
+
+    <!-- Популярные уязвимости -->
+    <div class="popular-vulns mt-5">
+        <h3 class="text-warning mb-4">⚡ Популярные уязвимости</h3>
+        <% if popular_vulnerabilities && !popular_vulnerabilities.empty? %>
+        <% popular_vulnerabilities.each do |v| %>
+            <div class="card bg-dark text-light border-neon mb-3 w-100">
+            <div class="card-body d-flex flex-column flex-md-row justify-content-between align-items-md-center">
+                <div class="mb-2 mb-md-0">
+                <h5 class="card-title mb-1">
+                    <a href="/vulnerabilities/<%= v.id %>" class="text-warning">
+                    <%= v.cve_code %>
+                    </a>
+                </h5>
+                <p class="mb-0"><%= v.title %></p>
+                </div>
+                <div class="text-end">
+                <span class="badge bg-success fs-6"><%= v.price %> 💳</span>
+                <span class="badge bg-info fs-6 ms-2"><%= v.platform_icon %> <%= v.type_icon %></span>
+                <span class="badge bg-danger fs-6 ms-2">🔥</span>
+                </div>
+            </div>
+            </div>
+        <% end %>
+        <% else %>
+        <p class="text-center text-muted">Нет популярных уязвимостей 😴</p>
+        <% end %>
+    </div>
+
+    <div class="glow-box mt-4">
+        <a href="/vulnerabilities" class="btn-neon">🔻 Смотреть все уязвимости 🔻</a>
+        <a href="/vulnerabilities/new" class="btn-neon">🔺 Продать уязвимость 🔺</a>
+    </div>
+</div>

@@ -1,0 +1,140 @@
+<% title = "Профиль пользователя" %>
+
+<div class="container neon-container">
+    <div class="card bg-dark text-light border-neon mb-4">
+        <div class="card-header bg-primary">
+        <h3 class="mb-0">👤 <%= current_user.username %> (Профиль)</h3>
+        </div>
+        <div class="card-body">
+        <p><strong>Email:</strong> <%= current_user.email %></p>
+        <p><strong>Баланс:</strong> <span id="user-balance"><%= current_user.balance %></span> кредитов</p>
+        <p><strong>Дата регистрации:</strong> <%= current_user.created_at.to_s("%d.%m.%Y %H:%M") %></p>
+        </div>
+    </div>
+
+    <div class="card bg-dark text-light border-neon mb-4">
+        <div class="card-header bg-primary">
+        <h4 class="mb-0">💰 Мои продажи</h4>
+        </div>
+        <div class="card-body">
+        <% if own_vulnerabilities && own_vulnerabilities.any? %>
+            <table class="table table-dark table-bordered table-hover">
+            <thead>
+                <tr class="bg-primary text-light">
+                <th>NCVE</th>
+                <th>Название</th>
+                <th>Цена</th>
+                <th>Статус</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% own_vulnerabilities.each do |v| %>
+                <tr>
+                    <td>
+                    <a href="/vulnerabilities/<%= v.id %>" class="text-warning">
+                        <%= v.cve_code %>
+                    </a>
+                    </td>
+                    <td><%= v.title %></td>
+                    <td><%= v.price %> кредитов</td>
+                    <td>
+                    <% if v.status == "sold" %>
+                        <span class="badge bg-primary">Продано</span>
+                    <% else %>
+                        <span class="badge bg-success">Доступно</span>
+                    <% end %>
+                    </td>
+                </tr>
+                <% end %>
+            </tbody>
+            </table>
+        <% else %>
+            <p class="text-center text-muted">Нет продаж</p>
+        <% end %>
+        </div>
+    </div>
+
+    <div class="card bg-dark text-light border-neon mb-4">
+        <div class="card-header bg-primary">
+        <h4 class="mb-0">🛒 Купленные уязвимости</h4>
+        </div>
+        <div class="card-body">
+        <% if purchased_vulnerabilities && purchased_vulnerabilities.any? %>
+            <table class="table table-dark table-bordered table-hover">
+            <thead>
+                <tr class="bg-primary text-light">
+                <th>NCVE</th>
+                <th>Название</th>
+                <th>Цена</th>
+                <th>Дата покупки</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% purchased_vulnerabilities.each do |v| %>
+                <tr>
+                    <td>
+                    <a href="/vulnerabilities/<%= v.vulnerability_id %>" class="text-warning">
+                        <%= v.cve_code %>
+                    </a>
+                    </td>
+                    <td><%= v.title %></td>
+                    <td><%= v.amount %> кредитов</td>
+                    <td><%= v.created_at.to_s("%d.%m.%Y %H:%M") %></td>
+                </tr>
+                <% end %>
+            </tbody>
+            </table>
+        <% else %>
+            <p class="text-center text-muted">Нет купленных уязвимостей</p>
+        <% end %>
+        </div>
+    </div>
+
+    <div class="card bg-dark text-light border-neon mb-4">
+        <div class="card-header bg-primary">
+        <h4 class="mb-0">📜 История транзакций</h4>
+        </div>
+        <div class="card-body">
+        <% if history_of_transactions && history_of_transactions.any? %>
+            <table class="table table-dark table-bordered table-hover">
+            <thead>
+                <tr class="bg-primary text-light">
+                    <th>Сумма</th>
+                    <th>От кого</th>
+                    <th>Кому</th>
+                    <th>Тип</th>
+                    <th>Дата</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% history_of_transactions.each do |t| %>
+                <tr>
+                    <td><a href="/transactions/<%= t.id %>"><%= t.amount %> кредитов</a></td>
+                    <td><%= t.from_user %></td>
+                    <td><%= t.to_user %></td>
+                    <td>
+                    <% case t.transaction_type
+                        when "purchase" %>
+                        <span class="badge bg-success">🛒 Покупка</span>
+                        <% when "bonus" %>
+                        <span class="badge bg-warning">🎁 Бонус</span>
+                        <% when "transfer" %>
+                        <span class="badge bg-info">🔁 Перевод</span>
+                        <% else %>
+                        <span class="badge bg-secondary">❓ Неизвестно</span>
+                    <% end %>
+                    </td>
+                    <td><%= t.created_at.to_s("%d.%m.%Y %H:%M") %></td>
+                </tr>
+                <% end %>
+            </tbody>
+            </table>
+        <% else %>
+            <p class="text-center text-muted">Нет транзакций</p>
+        <% end %>
+        </div>
+    </div>
+    <div class="text-center mt-4">
+        <a href="/users/transfer" class="btn-neon-secondary">🔀 Переводы</a>
+    </div>
+</div>
